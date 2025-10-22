@@ -78,12 +78,12 @@ You can install our package by cloning this repository or using pip.
 ```bash
 # clone
 git clone https://github.com/AIDALab-DIMES/M2OE.git
-cd m2oe
+cd M2OE
 pip install -e .
 ```
 ```bash
 # pip
-pip install m2oe
+pip install M2OE
 ```
 
 ---
@@ -93,8 +93,8 @@ pip install m2oe
 
 ```python
 import numpy as np
-import m2oe
-import m2oe.explainers.TabularExplainer as TE
+import M2OE
+import M2OE.explainers.TabularExplainer as TE
 
 # Create a random dataset (values in the [0,1] range) with 20 features
 X = np.random.rand(100,20).astype(np.float32)
@@ -114,8 +114,8 @@ for dims, patched in res:
 
 ```python
 import numpy as np
-import m2oe
-import m2oe.explainers.TabularGroupExplainer as TGE
+import M2OE
+import M2OE.explainers.TabularGroupExplainer as TGE
 
 # Create a random dataset (values in the [0,1] range) with 20 features
 X = np.random.rand(100,20).astype(np.float32)
@@ -141,8 +141,8 @@ for g, expls_for_group in enumerate(res):
 
 ```python
 import numpy as np
-import m2oe
-import m2oe.explainers.TabularSequentialExplainer as TSE
+import M2OE
+import M2OE.explainers.TabularSequentialExplainer as TSE
 
 # Create a data collection including three (T=3) snapshots with 20 features
 X = np.random.rand(3, 100, 20).astype(np.float32)

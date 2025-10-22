@@ -3,7 +3,7 @@ import setuptools
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setuptools.setup(
-    name="m2oe",
+    name="M2OE",
     version="0.0.1",
     author="Fabrizio Angiulli, Fabio Fassetti, Simona Nisticò, Luigi Palopoli",
     author_email="simona.nistico@dimes.unical.it",
