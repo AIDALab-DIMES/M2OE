@@ -12,7 +12,7 @@ All those explainers work with continuous tabular data.
 
 ---
 
-## Reference
+## References
 
 Further information about the here implemented approaches are reported in the following papers. If you you our work, please cite them.
 

@@ -17,8 +17,8 @@ setuptools.setup(
         'tqdm',
         'numpy',
         'pandas',
-        'scikit_learn~=1.0.2',
-        'tensorflow==2.3.0',
+        'scikit_learn>=1.0.2',
+        'tensorflow>=2.3.0',
       ],
     classifiers=[
         "Programming Language :: Python :: 3",
