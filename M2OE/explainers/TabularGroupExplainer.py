@@ -103,7 +103,7 @@ class TabularGroupExplainer(Explainer):
         self.bs = bs
         
         self.explainers = []
-        self.outliers = {}
+        self.outliers = []
         self.choices = []
         self.exps = []
         self.rs = {}
@@ -186,14 +186,15 @@ class TabularGroupExplainer(Explainer):
             ptc, _ = self._explain(exp_nn, [out, mds], threshold=self.threshold, binary=False)
             
             # Add explanation
-            exps.append((dims, ptc))
+            exps.append(ptc)
                 
         return exps
     
     
-    def _single_explanation(self, ds, num_tries, norm_samples):
+    def _single_explanation(self, ds, num_tries, norm_samples, out_ids):
         t = 0
         choose = []
+        exps = {}
         
         while len(choose)==0 and t<num_tries:
             # Explanator creation
@@ -207,9 +208,12 @@ class TabularGroupExplainer(Explainer):
             # Alternative explanation collection
             _, choose = self._explain(exp_nn, ds, threshold=self.threshold, binary=True)
             choose = choose[0]
-            exps = self._explanation_generation(exp_nn, ds[0][:1], ds[1], choose)
+            
         if len(choose)==0:
             raise Exception("Explanation process failed, try with a lower value for alpha3!") 
+            
+        for out_id in out_ids:
+            exps[out_id] = self._explanation_generation(exp_nn, self.out[out_id:out_id+1], ds[1], choose)
         
         return exp_nn, choose, exps
     
@@ -228,23 +232,22 @@ class TabularGroupExplainer(Explainer):
         n_neigh : int, optional, default=30
             Reference set size `k` at each snapshot. If None all data samples are considered.
         num_groups : int, optional, default=1
-            Target number of groups after merging.
+            Target number of groups after merging. It must be an integer in the [1, out.shape[0]] range.
         num_tries : int, optional, default=3
             Number of restarts in case of explanation failure.
 
         Returns
         -------
-        List[List[List[Tuple[np.ndarray, np.ndarray]]]]
-            For each resulting group, a list of `(dims, patched)` pair is produced for each outlier belonging to that group:
-              - `dims`: 1-D array of feature indices for the **shared** choice.
-              - `patched`: representative counterfactual `(1, D)` for the each outlier belonging to the group (e.g., medoid-based).
-            Multiple `(dims, patched)` pairs can be produced per outliers if several normal samples clusters are found.
+        Dict
+            For each resulting group, a dictionary reports the outliers belonging to the group (`out_ids` field), the associated choice (`choice` field), and the patches for each outlier (`patches` field). Multiple patches can be produced per outliers if several normal samples clusters are found.
         """
+        assert num_groups > 0 and num_groups < len(out), "num_groups should be in the [1, out.shape[0]) range."
+        
         self.in_shape = norm_samples.shape[1]
         self.out = out
         
         self.explainers = [] # Explainers from 0 to out.shape[0] are base explainers, the following ones are aggregated explainars 
-        self.outliers = {}
+        self.outliers = []
         self.choices = []
         self.rs = {}
         self.num_groups = num_groups
@@ -255,6 +258,7 @@ class TabularGroupExplainer(Explainer):
         
         # Build base explainers
         for i in tqdm(range(len(self.out))):
+            self.outliers.append([i])
 
             # Reference Set retrival
             if n_neigh is not None:
@@ -266,13 +270,12 @@ class TabularGroupExplainer(Explainer):
             self.rs[i] = rs
             
             # Explanation computation
-            exp_nn, choose, exp = self._single_explanation(mm_data, num_tries, norm_samples)
+            exp_nn, choose, exp = self._single_explanation(mm_data, num_tries, norm_samples, [i])
             self.exps.append(exp)
             self.choices.append(choose)
             self.explainers.append(exp_nn)
             
  
-        self.outliers = {0: [[i] for i in range(self.out.shape[0])]}
         self.exp_id = {0: {i: i for i in range(self.out.shape[0])}}
         
         
@@ -282,17 +285,17 @@ class TabularGroupExplainer(Explainer):
             best_s = -1
             best_j = -1
             
-            for s in range(len(self.outliers[it])):
-                for j in range(len(self.outliers[it])):
+            for s in range(len(self.exp_id[it])):
+                for j in range(len(self.exp_id[it])):
                     if s != j:
-                        x_normal = self.rs[self.outliers[it][j][0]]
-                        mm_data_o = np.full_like(x_normal, fill_value=self.out[self.outliers[it][j][0]])
+                        x_normal = self.rs[self.outliers[self.exp_id[it][j]][0]]
+                        mm_data_o = np.full_like(x_normal, fill_value=self.out[self.outliers[self.exp_id[it][j]][0]])
                         mm_data_i = x_normal
 
-                        for op in range(1, len(self.outliers[it][j])):
-                            x_normal = self.rs[self.outliers[it][j][op]]
+                        for op in range(1, len(self.outliers[self.exp_id[it][j]])):
+                            x_normal = self.rs[self.outliers[self.exp_id[it][j]][op]]
 
-                            mm_data_o = np.append(mm_data_o, np.full_like(x_normal, self.out[self.outliers[it][j][op]:self.outliers[it][j][op]+1]), axis=0)
+                            mm_data_o = np.append(mm_data_o, np.full_like(x_normal, self.out[self.outliers[self.exp_id[it][j]][op]]), axis=0)
                             mm_data_i = np.append(mm_data_i, x_normal, axis=0)
                         mm_data = [mm_data_o, mm_data_i]
 
@@ -302,52 +305,55 @@ class TabularGroupExplainer(Explainer):
                             best_s = s
                             best_j = j
             
-            ext_s = self.outliers[it][best_s].copy()
-            ext_s.extend(self.outliers[it][best_j])
             self.exp_id[it+1] = {}
             
-            outs_up = []
-            for s in range(len(self.outliers[it])):
+            new_group_id = -1
+            for s in range(len(self.exp_id[it])):
                 if s != best_j:
                     new_id = s if s < best_j else s-1
                     if s != best_s:
-                        outs_up.append(self.outliers[it][s])
                         self.exp_id[it+1][new_id] = self.exp_id[it][s]
                     else:
-                        outs_up.append(ext_s)
+                        new_group = self.outliers[self.exp_id[it][s]].copy()
+                        new_group.extend(self.outliers[self.exp_id[it][best_j]])
                         self.exp_id[it+1][new_id] = len(self.explainers)
-            self.outliers[it+1] = outs_up
+                        self.outliers.append(new_group)
+                        new_group_id = new_id
+                        
             
             # Train the new explainer
-            x_normal = self.rs[self.outliers[it][best_s][0]]
-            mm_data_o = np.full_like(x_normal, fill_value=self.out[self.outliers[it][best_s][0]])
+            x_normal = self.rs[self.outliers[self.exp_id[it+1][new_group_id]][0]]
+            mm_data_o = np.full_like(x_normal, fill_value=self.out[self.outliers[self.exp_id[it+1][new_group_id]][0]])
             mm_data_i = x_normal
 
-            for op in range(1, len(self.outliers[it][best_s])):
-                x_normal = self.rs[self.outliers[it][best_s][op]]
+            for op in range(1, len(self.outliers[self.exp_id[it+1][new_group_id]])):
+                x_normal = self.rs[self.outliers[self.exp_id[it+1][new_group_id]][op]]
 
-                mm_data_o = np.append(mm_data_o, np.full_like(x_normal, self.out[self.outliers[it][best_s][op]]), axis=0)
-                mm_data_i = np.append(mm_data_i, x_normal, axis=0)
-
-            for op in range(1, len(self.outliers[it][best_j])):
-                x_normal = self.rs[self.outliers[it][best_j][op]]
-
-                mm_data_o = np.append(mm_data_o, np.full_like(x_normal, self.out[self.outliers[it][best_j][op]]), axis=0)
+                mm_data_o = np.append(mm_data_o, np.full_like(x_normal, self.out[self.outliers[self.exp_id[it+1][new_group_id]][op]]), axis=0)
                 mm_data_i = np.append(mm_data_i, x_normal, axis=0)
 
             mm_data = [mm_data_o, mm_data_i]
             
             # Explanation computation
-            exp_nn, choose, exp = self._single_explanation(mm_data, num_tries, norm_samples)
+            exp_nn, choose, exp = self._single_explanation(mm_data, num_tries, norm_samples, self.outliers[self.exp_id[it+1][new_group_id]])
                 
             self.exps.append(exp)
             self.explainers.append(exp_nn)
             self.choices.append(choose)
             
         # Compute final explanation
-        exp = []
-        for i in range(len(self.outliers[it+1])):
-            exp.append(self.exps[self.exp_id[it+1][i]])
+        # One dictionary for each group
+        exp = {}
+        for g_id in range(num_groups):
+            exp[g_id] = {}
+            exp[g_id]['out_ids'] = self.outliers[self.exp_id[it+1][g_id]]
+            exp[g_id]['choice'] = np.argwhere(self.choices[self.exp_id[it+1][g_id]]>0)[0]
+            
+            patches = {}
+            for out_id in self.outliers[self.exp_id[it+1][g_id]]:
+                patches[out_id] = self.exps[self.exp_id[it+1][g_id]]
+                
+            exp[g_id]['patches'] = patches
             
         return exp
 
