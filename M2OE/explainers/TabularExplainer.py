@@ -18,16 +18,11 @@ class TabularExplainer(Explainer):
     This explainer wraps a sample-conditioned masking model (`TabularMM`) to
     produce compact, subspace-level explanations of a tabular outlier. Given an
     outlier `out ∈ ℝ^D` and a reference population of normals, it:
-
     1) builds a **reference set** `RS ∈ ℝ^{k×D}`,
-    2) trains the masking model on paired inputs `[O_rep, RS]` with `O_rep` being
-       `out` replicated to `(k, D)`,
-    3) reads per-feature **choice** vectors for each pair and mines **frequent
-       choices** (subspaces) via `fpmax`,
-    4) clusters reference points restricted to each chosen subspace using
-       `cl_algo` (default: DBSCAN),
-    5) for each cluster medoid, generates a **counterfactual patch** `out'` by
-       applying the learned **mask** only on the chosen features,
+    2) trains the masking model on paired inputs `[O_rep, RS]` with `O_rep` being `out` replicated to `(k, D)`,
+    3) reads per-feature **choice** vectors for each pair and mines **frequent choices** (subspaces) via `fpmax`,
+    4) clusters reference points restricted to each chosen subspace using `cl_algo` (default: DBSCAN),
+    5) for each cluster medoid, generates a **counterfactual patch** `out'` by applying the learned **mask** only on the chosen features,
     6) returns a list of `(dims, patched)` explanations.
 
     Parameters
@@ -115,9 +110,8 @@ class TabularExplainer(Explainer):
         Generate the per-sample **choice** and corresponding **counterfactual patch**.
 
         This routine queries the trained masking model to obtain:
-        (1) a per-feature **choice** vector (soft or binarized), and
-        (2) the **patched** sample obtained by applying the learned mask only on the
-            selected features of the outlier.
+        - a per-feature **choice** vector (soft or binarized), and
+        - the **patched** sample obtained by applying the learned mask only on the selected features of the outlier.
 
         Parameters
         ----------

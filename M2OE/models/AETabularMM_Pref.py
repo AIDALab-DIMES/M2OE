@@ -56,11 +56,9 @@ class TabularMM_Pref(TabularMM_SC):
         Compute the composite loss for the masking/choice model.
 
         This loss combines three per-sample terms:
-        (1) a proximity term that pulls the patched outlier toward its reference in the
-            selected subspace, (2) a contrastive term that favors subspaces where the
-            outlier deviates from normals (using `self.normal_dist`), and (3) a sparsity
-            term on the choice vector to prefer compact explanations, a preference weight
-            promotes feature re-selection across different snapshots.
+        1) a proximity term that pulls the patched outlier toward its reference in the selected subspace, 
+        2) a contrastive term that favors subspaces where the outlier deviates from normals (using `self.normal_dist`)
+        3) a sparsity term on the choice vector to prefer compact explanations, a preference weight promotes feature re-selection across different snapshots.
 
         Parameters
         ----------

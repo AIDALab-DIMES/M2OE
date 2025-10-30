@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>M2OE package &#8212; M2OE 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=f6245a2f"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to M2OE’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="m2oe-package">
+<h1>M2OE package<a class="headerlink" href="#m2oe-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-M2OE.explainers.Explainer">
+<span id="m2oe-explainers-module"></span><h2>M2OE.explainers module<a class="headerlink" href="#module-M2OE.explainers.Explainer" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="M2OE.explainers.Explainer.Explainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">M2OE.explainers.Explainer.</span></span><span class="sig-name descname"><span class="pre">Explainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rs_selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NearestNeighbors()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.explainers.Explainer.Explainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.explainers.Explainer.Explainer.compute_explanation">
+<span class="sig-name descname"><span class="pre">compute_explanation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_neigh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.explainers.Explainer.Explainer.compute_explanation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method to compute choice–mask explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out</strong> (<em>np.ndarray</em>) – Outlier sample.</p></li>
+<li><p><strong>norm_samples</strong> (<em>np.ndarray</em>) – Normal data.</p></li>
+<li><p><strong>n_neigh</strong> (<em>int</em>) – Size of the k-NN reference set <cite>k</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-M2OE.explainers.TabularExplainer"></span><dl class="py class">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">M2OE.explainers.TabularExplainer.</span></span><span class="sig-name descname"><span class="pre">TabularExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1.0,</span> <span class="pre">1.2,</span> <span class="pre">0.3]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rs_selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NearestNeighbors()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl_algo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DBSCAN(eps=0.1)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#M2OE.explainers.Explainer.Explainer" title="M2OE.explainers.Explainer.Explainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Explainer</span></code></a></p>
+<p>Tabular explainer for explaining an evolving outlier.</p>
+<p>This explainer wraps a sample-conditioned masking model (<cite>TabularMM</cite>) to
+produce compact, subspace-level explanations of a tabular outlier. Given an
+outlier <cite>out ∈ ℝ^D</cite> and a reference population of normals, it:
+1) builds a <strong>reference set</strong> <cite>RS ∈ ℝ^{k×D}</cite>,
+2) trains the masking model on paired inputs <cite>[O_rep, RS]</cite> with <cite>O_rep</cite> being <cite>out</cite> replicated to <cite>(k, D)</cite>,
+3) reads per-feature <strong>choice</strong> vectors for each pair and mines <strong>frequent choices</strong> (subspaces) via <cite>fpmax</cite>,
+4) clusters reference points restricted to each chosen subspace using <cite>cl_algo</cite> (default: DBSCAN),
+5) for each cluster medoid, generates a <strong>counterfactual patch</strong> <cite>out’</cite> by applying the learned <strong>mask</strong> only on the chosen features,
+6) returns a list of <cite>(dims, patched)</cite> explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>normal_data</strong> (<em>np.ndarray</em>) – Normal/reference data array of shape <cite>(N, D)</cite> used to compute the model’s
+per-feature dispersion vector <cite>normal_dist</cite> <cite>(D,)</cite>.</p></li>
+<li><p><strong>loss_weights</strong> (<em>Sequence</em><em>[</em><em>float</em><em>]</em><em>, </em><em>default=</em><em>[</em><em>1.0</em><em>, </em><em>1.2</em><em>, </em><em>0.3</em><em>]</em>) – Three non-negative weights <cite>[alpha1, alpha2, alpha3]</cite> for the loss terms:
+subspace contrast, patch proximity, and choice sparsity.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default=0.001</em>) – Learning rate for the optimizer used during the internal model training.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em><em>, </em><em>default=30</em>) – Number of training epochs used when fitting the masking model.</p></li>
+<li><p><strong>bs</strong> (<em>int</em><em>, </em><em>default=16</em>) – Mini-batch size used when fitting the masking model.</p></li>
+<li><p><strong>rs_selector</strong> (<em>type</em><em> or </em><em>object</em><em>, </em><em>optional</em><em>, </em><em>default=`sklearn.neighbors.NearestNeighbors`</em>) – Reference set selector used to build the reference set. It must expose a <cite>fit</cite> and
+<cite>kneighbors</cite>-like interface. If a <strong>type</strong> is provided, it will be
+instantiated internally with sensible defaults.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.5</em>) – Binarization threshold in <cite>[0, 1]</cite> applied to the choice output when
+computing explanations.</p></li>
+<li><p><strong>cl_algo</strong> (<em>sklearn.cluster</em><em>, </em><em>optional</em><em>, </em><em>default=`DBSCAN</em><em>(</em><em>eps=0.10</em><em>)</em><em>`</em>) – Clustering algorithm used on <cite>RS[:, dims]</cite> to discover distinct local
+modes for each frequent choice <cite>dims</cite>. Must implement <cite>fit_predict</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer.in_shape">
+<span class="sig-name descname"><span class="pre">in_shape</span></span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer.in_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feature dimensionality <cite>D</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer.exp_nn">
+<span class="sig-name descname"><span class="pre">exp_nn</span></span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer.exp_nn" title="Permalink to this definition">¶</a></dt>
+<dd><p>The underlying masking model that learns <strong>choice</strong> and <strong>mask</strong> and
+outputs <cite>patches</cite> (<cite>(B, D)</cite>), <cite>masks</cite> (<cite>(B, D)</cite>), and <cite>choices</cite> (<cite>(B, D)</cite>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#M2OE.models.AETabularMM.TabularMM" title="M2OE.models.AETabularMM.TabularMM">TabularMM</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer.out">
+<span class="sig-name descname"><span class="pre">out</span></span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer.out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the last explained outlier, shape <cite>(1, D)</cite> or <cite>(D,)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer.loss_weights">
+<span class="sig-name descname"><span class="pre">loss_weights</span></span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer.loss_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss weights used for all time steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sequence[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">lr,</span> <span class="pre">epochs,</span> <span class="pre">bs</span></span></dt>
+<dd><p>Optimizer and training hyperparameters reused at each step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[float, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer.cl_algo">
+<span class="sig-name descname"><span class="pre">cl_algo</span></span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer.cl_algo" title="Permalink to this definition">¶</a></dt>
+<dd><p>The clustering algorithm actually used during explanation generation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sklearn.base.ClusterMixin</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer.threshold">
+<span class="sig-name descname"><span class="pre">threshold</span></span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Effective threshold used to filter/binarize the choice output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float, default=0.5</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer.rs_selector">
+<span class="sig-name descname"><span class="pre">rs_selector</span></span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer.rs_selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fitted reference set selector used to retrieve the reference set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object, default=</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularGroupExplainer</span></code></dt><dd><p>Learns <strong>shared</strong> choices across multiple outliers (group explanations).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularSequentialExplainer</span></code></dt><dd><p>Preference-guided variant for <strong>evolving</strong> outliers across time/snapshots.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularMM</span></code></dt><dd><p>Sample-conditioned masking model for tabular data.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Angiulli, Fassetti, Nisticò, Palopoli (2024). <em>Explaining outliers and anomalous
+groups via subspace density contrastive loss</em>, Machine Learning.
+<a class="reference external" href="https://doi.org/10.1007/s10994-024-06618-8">https://doi.org/10.1007/s10994-024-06618-8</a></p></li>
+<li><p>Angiulli, Fassetti, Nisticò, Palopoli (2025). <em>Explaining evolving outliers for
+uncovering key aspects of the green comparative advantage</em>, Array.
+<a class="reference external" href="https://doi.org/10.1016/j.array.2025.100518">https://doi.org/10.1016/j.array.2025.100518</a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularExplainer.TabularExplainer.compute_explanation">
+<span class="sig-name descname"><span class="pre">compute_explanation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_neigh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_tries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.explainers.TabularExplainer.TabularExplainer.compute_explanation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute explanations for a <strong>single</strong> outlier tabular sample.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out</strong> (<em>np.ndarray</em>) – Outlier <cite>(1, D)</cite>.</p></li>
+<li><p><strong>norm_samples</strong> (<em>np.ndarray</em>) – Normal data <cite>(N, D)</cite> used for both reference set selection and statistic vector computation.</p></li>
+<li><p><strong>n_neigh</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=30</em>) – Reference set size <cite>k</cite> at each snapshot. If None all data samples are considered.</p></li>
+<li><p><strong>num_tries</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=3</em>) – Number of restarts in case of explanation failure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A list of <cite>(dims, patched)</cite> pairs where:</dt><dd><ul class="simple">
+<li><p><cite>dims</cite>: 1-D array of feature indices (length <cite>m</cite>) representing the chosen subspace.</p></li>
+<li><p><cite>patched</cite>: a counterfactual sample of shape <cite>(1, D)</cite> (only <cite>dims</cite> differ from <cite>out</cite>).</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Tuple[np.ndarray, np.ndarray]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-M2OE.explainers.TabularGroupExplainer"></span><dl class="py class">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">M2OE.explainers.TabularGroupExplainer.</span></span><span class="sig-name descname"><span class="pre">TabularGroupExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">loss_weights=[1.0,</span> <span class="pre">1.0,</span> <span class="pre">0.5],</span> <span class="pre">lr=0.001,</span> <span class="pre">epochs=30,</span> <span class="pre">bs=16,</span> <span class="pre">rs_selector=&lt;class</span> <span class="pre">'sklearn.neighbors._unsupervised.NearestNeighbors'&gt;,</span> <span class="pre">threshold=0.5,</span> <span class="pre">cl_algo=DBSCAN(eps=0.1)</span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#M2OE.explainers.Explainer.Explainer" title="M2OE.explainers.Explainer.Explainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Explainer</span></code></a></p>
+<p>Group explainer for multiple tabular outliers (shared-choice explanations).</p>
+<p>This explainer discovers compact, <em>shared</em> subspaces that jointly explain a set
+of outliers. It wraps a shared-choice masking model (<cite>TabularMM_SC</cite>) so that all
+samples in a group use the <strong>same per-feature choice vector</strong>, while keeping the
+<strong>mask</strong> (magnitude of change) sample-conditioned. At a high level, it:</p>
+<ol class="arabic simple">
+<li><p>builds a <strong>reference set</strong> <cite>RS</cite> for each outlier,</p></li>
+<li><p>trains base shared-choice models and evaluates <strong>cross-loss</strong> to find
+mutually-explainable outliers,</p></li>
+<li><p><strong>merges</strong> the most compatible outliers into groups and retrains a shared
+model per group,</p></li>
+<li><p>mines clusters <cite>RS[:, dims]</cite> with <cite>cl_algo</cite> (default: DBSCAN) to identify
+distinct local explanations,</p></li>
+<li><p>for each cluster medoid, generates a <strong>counterfactual patch</strong> by applying the
+learned mask only on the shared chosen set of features.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>normal_data</strong> (<em>np.ndarray</em>) – Normal data of shape <cite>(N, D)</cite> used for the explanation.</p></li>
+<li><p><strong>loss_weights</strong> (<em>Sequence</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>1.0</em><em>, </em><em>1.0</em><em>, </em><em>0.5</em><em>]</em>) – Three non-negative loss weights <cite>[alpha1, alpha2, alpha3]</cite> for: subspace
+contrast, patch proximity, and choice sparsity.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1e-3</em>) – Learning rate for the optimizer used when fitting the masking model(s).</p></li>
+<li><p><strong>epochs</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default= 30</em>) – Number of training epochs for each (re)trained group model.</p></li>
+<li><p><strong>bs</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default= 16</em>) – Mini-batch size used during training.</p></li>
+<li><p><strong>rs_selector</strong> (type or object, optional (default: <cite>sklearn.neighbors.NearestNeighbors</cite>)) – samples selector used to build reference sets. Must expose <cite>fit</cite>/<cite>kneighbors</cite>.
+If a <strong>type</strong> is provided, it is instantiated internally.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default= 0.5</em>) – Binarization threshold in <cite>[0, 1]</cite> applied to the choice output.</p></li>
+<li><p><strong>cl_algo</strong> (sklearn.cluster, optional, default= <cite>DBSCAN(eps=0.10)</cite>) – Clustering algorithm used on <cite>RS[:, dims]</cite> for each discovered subspace.
+Must implement <cite>fit_predict</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.in_shape">
+<span class="sig-name descname"><span class="pre">in_shape</span></span><a class="headerlink" href="#M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.in_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feature dimensionality <cite>D</cite> inferred from <cite>normal_data.shape[1]</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.loss_weights">
+<span class="sig-name descname"><span class="pre">loss_weights</span></span><a class="headerlink" href="#M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.loss_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weights used by all group models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sequence[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">lr,</span> <span class="pre">epochs,</span> <span class="pre">bs</span></span></dt>
+<dd><p>Optimizer and training hyperparameters used during (re)training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[float, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.threshold">
+<span class="sig-name descname"><span class="pre">threshold</span></span><a class="headerlink" href="#M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Effective choice threshold used during explanation generation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.cl_algo">
+<span class="sig-name descname"><span class="pre">cl_algo</span></span><a class="headerlink" href="#M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.cl_algo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clustering algorithm used to obtain medoid-based counterfactuals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sklearn.cluster</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.rs_selector">
+<span class="sig-name descname"><span class="pre">rs_selector</span></span><a class="headerlink" href="#M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.rs_selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fitted selector used to retrieve reference sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularExplainer</span></code></dt><dd><p>Single-sample explainer (no sharing).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularSequentialExplainer</span></code></dt><dd><p>Preference-guided explainer for <strong>evolving</strong> outliers.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularMM_SC</span></code></dt><dd><p>Shared-choice masking model used internally for group explanations.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Angiulli, Fassetti, Nisticò, Palopoli (2024). <em>Explaining outliers and
+anomalous groups via subspace density contrastive loss</em>, Machine Learning.
+<a class="reference external" href="https://doi.org/10.1007/s10994-024-06618-8">https://doi.org/10.1007/s10994-024-06618-8</a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.compute_explanation">
+<span class="sig-name descname"><span class="pre">compute_explanation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_neigh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_tries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.explainers.TabularGroupExplainer.TabularGroupExplainer.compute_explanation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute explanations for a set of outliers by discovering/merging groups that
+share a compact subspace-level explanation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outs</strong> (<em>np.ndarray</em>) – Outliers array <cite>(M, D)</cite>.</p></li>
+<li><p><strong>norm_samples</strong> (<em>np.ndarray</em>) – Normal samples data used for the explanation <cite>(N, D)</cite>.</p></li>
+<li><p><strong>n_neigh</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=30</em>) – Reference set size <cite>k</cite> at each snapshot. If None all data samples are considered.</p></li>
+<li><p><strong>num_groups</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=1</em>) – Target number of groups after merging. It must be an integer in the [1, out.shape[0]] range.</p></li>
+<li><p><strong>num_tries</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=3</em>) – Number of restarts in case of explanation failure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>For each resulting group, a dictionary reports the outliers belonging to the group (<cite>out_ids</cite> field), the associated choice (<cite>choice</cite> field), and the patches for each outlier (<cite>patches</cite> field). Multiple patches can be produced per outliers if several normal samples clusters are found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-M2OE.explainers.TabularSequentialExplainer"></span><dl class="py class">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">M2OE.explainers.TabularSequentialExplainer.</span></span><span class="sig-name descname"><span class="pre">TabularSequentialExplainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rs_selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NearestNeighbors()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pref_fact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl_algo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OPTICS()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#M2OE.explainers.Explainer.Explainer" title="M2OE.explainers.Explainer.Explainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Explainer</span></code></a></p>
+<p>Sequential explainer for <strong>evolving</strong> (time-indexed) tabular outliers.</p>
+<p>This explainer builds one preference-guided masking model per snapshot
+(<cite>TabularMM_Pref</cite>) and encourages <strong>temporal stability</strong> by <em>reducing the
+sparsity penalty</em> on features selected at the previous step(s). Given an
+outlier sequence and a matching sequence of normal populations, it:</p>
+<ol class="arabic simple">
+<li><p>for each time step <cite>t = 0..T-1</cite>, forms a <strong>reference set</strong>
+<cite>RS_t ∈ ℝ^{k×D}</cite> for each outlier,</p></li>
+<li><p>trains a <cite>TabularMM_Pref</cite> using a per-feature <strong>preference</strong> vector
+<cite>p_t ∈ ℝ^D</cite> (values <cite>&lt; 1</cite> reduce sparsity penalty, promoting re-selection),</p></li>
+<li><p>thresholds the model’s <strong>choice</strong> to get the subspace <cite>dims_t</cite>,</p></li>
+<li><p>clusters <cite>RS_t[:, dims_t]</cite> via <cite>cl_algo</cite> (default: OPTICS) and, for each
+cluster medoid, generates a <strong>counterfactual patch</strong> <cite>out’_t</cite>,</p></li>
+<li><p>updates <cite>p_{t+1}</cite> by setting entries in <cite>dims_t</cite> to <cite>pref_fact</cite> and the
+rest to <cite>1.0</cite>,</p></li>
+<li><p>returns the per-step lists of <cite>(dims_t, out’_t)</cite> explanations.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>normal_data</strong> (<em>np.ndarray</em>) – Array of shape <cite>(T, N, D)</cite>. The first array dimension contains the <cite>T</cite> time steps,
+the second one the normal samples, finally, the last one contains the outlier’s features.</p></li>
+<li><p><strong>loss_weights</strong> (<em>Sequence</em><em>[</em><em>float</em><em>]</em><em>, </em><em>default=</em><em>[</em><em>1.0</em><em>, </em><em>1.2</em><em>, </em><em>0.3</em><em>]</em>) – Three non-negative loss weights <cite>[alpha1, alpha2, alpha3]</cite> for the loss terms:
+subspace contrast, patch proximity, and choice sparsity.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default=0.001</em>) – Learning rate for the optimizer used when training each step-specific model.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em><em>, </em><em>default=30</em>) – Number of training epochs per time step.</p></li>
+<li><p><strong>bs</strong> (<em>int</em><em>, </em><em>default=16</em>) – Mini-batch size used to fit each step-specific model.</p></li>
+<li><p><strong>rs_selector</strong> (type or object, optional (default: <cite>sklearn.neighbors.NearestNeighbors</cite>)) – selector used to build each <cite>RS_t</cite>. Must expose <cite>fit</cite>/<cite>kneighbors</cite>.
+If a <strong>type</strong> is provided, it will be instantiated internally.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.5</em>) – Binarization threshold in <cite>[0, 1]</cite> applied to the choice output.</p></li>
+<li><p><strong>pref_fact</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.5</em>) – Preference value assigned to <strong>previously-selected</strong> features for the next
+step (<cite>&lt; 1</cite> lowers the sparsity penalty and promotes re-selection).</p></li>
+<li><p><strong>cl_algo</strong> (sklearn.cluster, optional (default: <cite>OPTICS()</cite>)) – Clustering algorithm used on <cite>RS_t[:, dims_t]</cite> to identify local modes.
+Must implement <cite>fit_predict</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.in_shape">
+<span class="sig-name descname"><span class="pre">in_shape</span></span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.in_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feature dimensionality <cite>D</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.loss_weights">
+<span class="sig-name descname"><span class="pre">loss_weights</span></span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.loss_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss weights used for all time steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sequence[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">lr,</span> <span class="pre">epochs,</span> <span class="pre">bs</span></span></dt>
+<dd><p>Optimizer and training hyperparameters reused at each step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[float, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.explainers">
+<span class="sig-name descname"><span class="pre">explainers</span></span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.explainers" title="Permalink to this definition">¶</a></dt>
+<dd><p>The per-step preference-guided masking models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#M2OE.models.AETabularMM_Pref.TabularMM_Pref" title="M2OE.models.AETabularMM_Pref.TabularMM_Pref">TabularMM_Pref</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.out">
+<span class="sig-name descname"><span class="pre">out</span></span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the last explained outlier sequence; expected shape <cite>(T, 1, D)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.pref_fact">
+<span class="sig-name descname"><span class="pre">pref_fact</span></span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.pref_fact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preference value applied to features selected at the previous step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.cl_algo">
+<span class="sig-name descname"><span class="pre">cl_algo</span></span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.cl_algo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clustering algorithm used during explanation generation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sklearn.cluster</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.threshold">
+<span class="sig-name descname"><span class="pre">threshold</span></span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Effective choice threshold used during explanation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.rs_selector">
+<span class="sig-name descname"><span class="pre">rs_selector</span></span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.rs_selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fitted reference set selector used to retrieve per-step reference sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularExplainer</span></code></dt><dd><p>Single-sample explainer (no preference carry-over).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularGroupExplainer</span></code></dt><dd><p>Learns shared choices across multiple outliers at a single snapshot.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularMM_Pref</span></code></dt><dd><p>Preference-guided masking model used internally at each step.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Angiulli, Fassetti, Nisticò, Palopoli (2025). <em>Explaining evolving outliers
+for uncovering key aspects of the green comparative advantage</em>, Array.
+<a class="reference external" href="https://doi.org/10.1016/j.array.2025.100518">https://doi.org/10.1016/j.array.2025.100518</a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.compute_explanation">
+<span class="sig-name descname"><span class="pre">compute_explanation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_neigh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_tries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.explainers.TabularSequentialExplainer.TabularSequentialExplainer.compute_explanation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute explanations for an <strong>evolving</strong> outlier across <cite>T</cite> snapshots, softly
+preferring features used at previous steps (preference-guided sparsity).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out</strong> (<em>np.ndarray</em>) – Array of shape <cite>(T, D)</cite>, The first array dimension contains the <cite>T</cite> time steps, while  the last one contains the outlier’s features.</p></li>
+<li><p><strong>norm_samples</strong> (<em>np.ndarray</em>) – Array of shape <cite>(T, N, D)</cite>. The first array dimension contains the <cite>T</cite> time steps, the second one the normal samples, finally, the last one contains the outlier’s features.</p></li>
+<li><p><strong>n_neigh</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=30</em>) – Reference set size <cite>k</cite> at each snapshot. If None all data samples are considered.</p></li>
+<li><p><strong>num_tries</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=3</em>) – Number of restarts in case of explanation failure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of length <cite>T</cite>; each item is a list of <cite>(dims, patched)</cite> as in the single-sample case.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[List[Tuple[np.ndarray, np.ndarray]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-M2OE.models.MaskingModel">
+<span id="m2oe-models-module"></span><h2>M2OE.models module<a class="headerlink" href="#module-M2OE.models.MaskingModel" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="M2OE.models.MaskingModel.MaskingModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">M2OE.models.MaskingModel.</span></span><span class="sig-name descname"><span class="pre">MaskingModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.MaskingModel.MaskingModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>This Keras Model subclass provides an abstract implementation of the neural masking model that learn feature <em>choice</em> and <em>mask</em> to transform an outlier into a counterfactual close to normals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loss_weights</strong> (<em>Sequence</em><em>[</em><em>float</em><em>]</em><em>, </em><em>default=</em><em>[</em><em>1.0</em><em>, </em><em>1.2</em><em>, </em><em>0.3</em><em>]</em>) – Three non-negative weights <cite>[alpha1, alpha2, alpha3]</cite> controlling, respectively,
+(i) subspace contrast, (ii) patch proximity, and (iii) sparsity of the choice.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.001</em>) – Learning rate.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=30</em>) – Training epochs used by explainers.</p></li>
+<li><p><strong>bs</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=16</em>) – Batch size used by explainers.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.MaskingModel.MaskingModel.MASK">
+<span class="sig-name descname"><span class="pre">MASK</span></span><a class="headerlink" href="#M2OE.models.MaskingModel.MaskingModel.MASK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural module advocated to single out the features to include in the explanation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.MaskingModel.MaskingModel.CHOOSE">
+<span class="sig-name descname"><span class="pre">CHOOSE</span></span><a class="headerlink" href="#M2OE.models.MaskingModel.MaskingModel.CHOOSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural module advocated to find the modification to apply to sample’s features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.MaskingModel.MaskingModel.MASKAPPLY">
+<span class="sig-name descname"><span class="pre">MASKAPPLY</span></span><a class="headerlink" href="#M2OE.models.MaskingModel.MaskingModel.MASKAPPLY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-network that composes input, mask and choice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Angiulli, F., Fassetti, F., Nisticò, S., &amp; Palopoli, L. (2025). Explaining evolving outliers for uncovering key aspects of the green comparative advantage. Array, 100518.</p></li>
+<li><p>Angiulli, F., Fassetti, F., Nisticò, S., &amp; Palopoli, L. (2024). Explaining outliers and anomalous groups via subspace density contrastive loss. Machine Learning, 113(10), 7565-7589.</p></li>
+<li><p>Angiulli, F., Fassetti, F., Nisticó, S., &amp; Palopoli, L. (2023, October). Counterfactuals explanations for outliers via subspaces density contrastive loss. In International Conference on Discovery Science (pp. 159-173). Cham: Springer Nature Switzerland.</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.MaskingModel.MaskingModel.defineMaskApply">
+<span class="sig-name descname"><span class="pre">defineMaskApply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.MaskingModel.MaskingModel.defineMaskApply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the <strong>mask applier</strong> sub-network that composes input, mask and choice.
+Sets attribute <cite>self.MASKAPPLY</cite> (Keras <cite>Model</cite>) with signature:
+- <cite>MASKAPPLY([O, mask, choice]) -&gt; O’</cite> where all tensors are <cite>(B, D)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_shape</strong> (<em>int</em><em> or </em><em>Tuple</em><em>[</em><em>int</em><em>]</em>) – Input feature dimensionality <cite>D</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.MaskingModel.MaskingModel.defineMaskGen">
+<span class="sig-name descname"><span class="pre">defineMaskGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.MaskingModel.MaskingModel.defineMaskGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the <strong>mask</strong> and <strong>choice</strong> generator sub-networks.
+Sets the <cite>self.MASK</cite> and <cite>self.CHOOSE</cite> neural sub-modules (Keras <cite>Model`s) with signatures roughly:
+- `MASK([O, R]) -&gt; mask</cite> of shape <cite>(B, D)</cite>
+- <cite>CHOOSE([O, R]) -&gt; choice</cite> of shape <cite>(B, D)</cite> with values in <cite>[0, 1]</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_shape</strong> (<em>int</em><em> or </em><em>Tuple</em><em>[</em><em>int</em><em>]</em>) – Input feature dimensionality <cite>D</cite> (an integer) or a shape tuple that can be resolved to <cite>D</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.MaskingModel.MaskingModel.test">
+<span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drawplot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.MaskingModel.MaskingModel.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-M2OE.models.AETabularMM"></span><dl class="py class">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">M2OE.models.AETabularMM.</span></span><span class="sig-name descname"><span class="pre">TabularMM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#M2OE.models.MaskingModel.MaskingModel" title="M2OE.models.MaskingModel.MaskingModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaskingModel</span></code></a></p>
+<p>This module provides an implementation of the neural masking model for a single tabular outlier. It learns feature <em>choice</em> and <em>mask</em> to transform an outlier into a counterfactual close to normals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>normal_data</strong> (<em>np.ndarray</em>) – Array of normal/reference data of shape <cite>(N, D)</cite> used to compute per-feature
+dispersion <cite>normal_dist</cite> of shape <cite>(D,)</cite>.</p></li>
+<li><p><strong>loss_weights</strong> (<em>Sequence</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>1.0</em><em>, </em><em>1.2</em><em>, </em><em>0.3</em><em>]</em>) – Three non-negative weights <cite>[alpha1, alpha2, alpha3]</cite> controlling, respectively,
+(i) subspace contrast, (ii) patch proximity, and (iii) sparsity of the choice.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>optional</em>) – Learning rate.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em><em>, </em><em>optional</em>) – Training epochs used by explainers.</p></li>
+<li><p><strong>bs</strong> (<em>int</em><em>, </em><em>optional</em>) – Batch size used by explainers.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.MASK">
+<span class="sig-name descname"><span class="pre">MASK</span></span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.MASK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural module advocated to single out the features to include in the explanation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.CHOOSE">
+<span class="sig-name descname"><span class="pre">CHOOSE</span></span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.CHOOSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural module advocated to find the modification to apply to sample’s features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.MASKAPPLY">
+<span class="sig-name descname"><span class="pre">MASKAPPLY</span></span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.MASKAPPLY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-network that composes input, mask and choice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.normal_dist">
+<span class="sig-name descname"><span class="pre">normal_dist</span></span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.normal_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Difference statistic vector storing the average feature-wise difference of provided normal samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray of shape (n_features,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Angiulli, F., Fassetti, F., Nisticò, S., &amp; Palopoli, L. (2024). Explaining outliers and anomalous groups via subspace density contrastive loss. Machine Learning, 113(10), 7565-7589.</p></li>
+<li><p>Angiulli, F., Fassetti, F., Nisticò, S., &amp; Palopoli, L. (2023, October). Counterfactuals explanations for outliers via subspaces density contrastive loss. In International Conference on Discovery Science (pp. 159-173). Cham: Springer Nature Switzerland.</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward pass producing counterfactual patches, raw masks, and choices. Overrides the Keras <cite>Model`s `call</cite> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<em>Sequence</em><em>[</em><em>tf.Tensor</em><em>]</em>) – <cite>[O, R]</cite> with shapes <cite>(B, D)</cite> each (outliers, references).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>(patches, masks, choices)</cite> each <cite>(B, D)</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[tf.Tensor, tf.Tensor, tf.Tensor]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choose</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the composite loss for the masking/choice model.</p>
+<p>This loss combines three per-sample terms:
+1) a proximity term that pulls the patched outlier toward its reference in the selected subspace,
+2) a contrastive term that favors subspaces where the outlier deviates from normals (using <cite>self.normal_dist</cite>),
+3) a sparsity term on the choice vector to prefer compact explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Sequence</em><em>[</em><em>tf.Tensor</em><em>] or </em><em>Tuple</em><em>[</em><em>tf.Tensor</em><em>, </em><em>tf.Tensor</em><em>]</em>) – <dl>
+<dt>Pair <cite>[data_o, data_i]</cite> where:</dt><dd><ul>
+<li><dl>
+<dt><cite>data_o</cite><span class="classifier">tf.Tensor, shape <cite>(B, D)</cite></span></dt><dd><p>Batch of outlier samples <strong>O</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><cite>data_i</cite><span class="classifier">tf.Tensor, shape <cite>(B, D)</cite></span></dt><dd><p>Batch of reference/normal samples <strong>R</strong> (e.g., kNN of <strong>O</strong>).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>patches</strong> (<em>tf.Tensor</em>) – Patched/counterfactual samples <strong>O’</strong>, shape <cite>(B, D)</cite>, produced by
+the mask applier.</p></li>
+<li><p><strong>mask</strong> (<em>tf.Tensor</em>) – Real-valued mask magnitudes, shape <cite>(B, D)</cite>.</p></li>
+<li><p><strong>choose</strong> (<em>tf.Tensor</em>) – Real-valued per-feature selectors in <cite>[0, 1]</cite>, shape <cite>(B, D)</cite>. Acts as a
+soft/binary <strong>choice</strong> of dimensions composing the explanation subspace.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scalar loss (0-D tensor): <cite>mean( α1 * margin_n + α2 * sample_distance + α3 * ndim_loss )</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Let <cite>Δ = R − O</cite> (element-wise), <cite>D</cite> the feature count, and <cite>α = self.loss_weights</cite>.</p>
+<p>Per-sample components (all shape <cite>(B,)</cite>):
+- <strong>Sparsity / dimensionality</strong>:
+- <strong>Proximity in the chosen subspace</strong> (weighted L2, normalized by <cite>sqrt(D)</cite>):
+- <strong>Contrast vs. normal samples</strong> (favoring subspaces with larger normal dispersion):</p>
+<p>Final scalar loss:
+<cite>loss = mean( α[0] * margin_n + α[1] * sample_distance + α[2] * ndim_loss )</cite></p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Angiulli, Fassetti, Nisticò, Palopoli (2024). <em>Explaining outliers and anomalous groups via
+subspace density contrastive loss</em>, Machine Learning. <a class="reference external" href="https://doi.org/10.1007/s10994-024-06618-8">https://doi.org/10.1007/s10994-024-06618-8</a></p></li>
+<li><p>Angiulli, Fassetti, Nisticò, Palopoli (2025). <em>Explaining evolving outliers for uncovering key
+aspects of the green comparative advantage</em>, Array. <a class="reference external" href="https://doi.org/10.1016/j.array.2025.100518">https://doi.org/10.1016/j.array.2025.100518</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.defineMaskApply">
+<span class="sig-name descname"><span class="pre">defineMaskApply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.defineMaskApply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the mask applier network.
+All tensors are <cite>(B, D)</cite> and <cite>O’ = O + choice ⊙ mask</cite> (⊙ element-wise product).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_shape</strong> (<em>int</em><em> or </em><em>Tuple</em><em>[</em><em>int</em><em>]</em>) – Input dimensionality <cite>D</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.defineMaskGen">
+<span class="sig-name descname"><span class="pre">defineMaskGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.defineMaskGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the <strong>mask</strong> and <strong>choice</strong> generator sub-networks.
+Sets the <cite>self.MASK</cite> and <cite>self.CHOOSE</cite> neural sub-modules (Keras <cite>Model`s) with signatures roughly:
+- `MASK([O, R]) -&gt; mask</cite> of shape <cite>(B, D)</cite>
+- <cite>CHOOSE([O, R]) -&gt; choice</cite> of shape <cite>(B, D)</cite> with values in <cite>[0, 1]</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_shape</strong> (<em>int</em><em> or </em><em>Tuple</em><em>[</em><em>int</em><em>]</em>) – Input feature dimensionality <cite>D</cite> (an integer) or a shape tuple that can be
+resolved to <cite>D</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM.TabularMM.train_step">
+<span class="sig-name descname"><span class="pre">train_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM.TabularMM.train_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-M2OE.models.AETabularMM_SC"></span><dl class="py class">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_SC.TabularMM_SC">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">M2OE.models.AETabularMM_SC.</span></span><span class="sig-name descname"><span class="pre">TabularMM_SC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_SC.TabularMM_SC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#M2OE.models.MaskingModel.MaskingModel" title="M2OE.models.MaskingModel.MaskingModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaskingModel</span></code></a></p>
+<p>This module provides an implementation of the neural masking model for a single tabular outlier. It learns an unique feature <em>choice</em> and <em>mask</em> to transform an outlier into a counterfactual close to normals.
+The choice network produces a <strong>batch-shared</strong> per-feature vector which is broadcast to <cite>(B, D)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>normal_data</strong> (<em>np.ndarray</em>) – Normal/reference data <cite>(N, D)</cite> to compute <cite>normal_dist</cite> <cite>(D,)</cite>.</p></li>
+<li><p><strong>loss_weights</strong> (<em>Sequence</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – Loss weights <cite>[alpha1, alpha2, alpha3]</cite>.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>optional</em>) – Learning rate.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em><em>, </em><em>optional</em>) – Training epochs used by explainers.</p></li>
+<li><p><strong>bs</strong> (<em>int</em><em>, </em><em>optional</em>) – Batch size used by explainers.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_SC.TabularMM_SC.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_SC.TabularMM_SC.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward pass producing counterfactual patches, raw masks, and choices. Overrides the Keras <cite>Model`s `call</cite> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<em>Sequence</em><em>[</em><em>tf.Tensor</em><em>]</em>) – <cite>[O, R]</cite> with shapes <cite>(B, D)</cite> each (outliers, references).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>(patches, masks, choices)</cite> each <cite>(B, D)</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[tf.Tensor, tf.Tensor, tf.Tensor]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_SC.TabularMM_SC.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choose</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_SC.TabularMM_SC.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the composite loss for the masking/choice model.</p>
+<p>This loss combines three per-sample terms:
+1) a proximity term that pulls the patched outlier toward its reference in the selected subspace,
+2) a contrastive term that favors subspaces where the outlier deviates from normals (using <cite>self.normal_dist</cite>),
+3) a sparsity term on the choice vector to prefer compact explanations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Sequence</em><em>[</em><em>tf.Tensor</em><em>] or </em><em>Tuple</em><em>[</em><em>tf.Tensor</em><em>, </em><em>tf.Tensor</em><em>]</em>) – <dl>
+<dt>Pair <cite>[data_o, data_i]</cite> where:</dt><dd><ul>
+<li><dl>
+<dt><cite>data_o</cite><span class="classifier">tf.Tensor, shape <cite>(B, D)</cite></span></dt><dd><p>Batch of outlier samples <strong>O</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><cite>data_i</cite><span class="classifier">tf.Tensor, shape <cite>(B, D)</cite></span></dt><dd><p>Batch of reference/normal samples <strong>R</strong> (e.g., kNN of <strong>O</strong>).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>patches</strong> (<em>tf.Tensor</em>) – Patched/counterfactual samples <strong>O’</strong>, shape <cite>(B, D)</cite>, produced by the mask applier.</p></li>
+<li><p><strong>mask</strong> (<em>tf.Tensor</em>) – Real-valued mask magnitudes, shape <cite>(B, D)</cite>.</p></li>
+<li><p><strong>choose</strong> (<em>tf.Tensor</em>) – Real-valued per-feature selectors in <cite>[0, 1]</cite>, shape <cite>(B, D)</cite>. Acts as a soft/binary <strong>choice</strong> of dimensions composing the explanation subspace.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scalar loss (0-D tensor): <cite>mean( α1 * margin_n + α2 * sample_distance + α3 * ndim_loss )</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Let <cite>Δ = R − O</cite> (element-wise), <cite>D</cite> the feature count, and <cite>α = self.loss_weights</cite>.</p>
+<p>Per-sample components (all shape <cite>(B,)</cite>):
+- <strong>Sparsity / dimensionality</strong>
+- <strong>Proximity in the chosen subspace</strong> (weighted L2, normalized by <cite>sqrt(D)</cite>)
+- <strong>Contrast vs. normal samples</strong> (favoring subspaces with larger normal dispersion)</p>
+<p>Final scalar loss:
+<cite>loss = mean( α[0] * margin_n + α[1] * sample_distance + α[2] * ndim_loss )</cite></p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Angiulli, Fassetti, Nisticò, Palopoli (2024). <em>Explaining outliers and anomalous groups via
+subspace density contrastive loss</em>, Machine Learning. <a class="reference external" href="https://doi.org/10.1007/s10994-024-06618-8">https://doi.org/10.1007/s10994-024-06618-8</a></p></li>
+<li><p>Angiulli, Fassetti, Nisticò, Palopoli (2025). <em>Explaining evolving outliers for uncovering key
+aspects of the green comparative advantage</em>, Array. <a class="reference external" href="https://doi.org/10.1016/j.array.2025.100518">https://doi.org/10.1016/j.array.2025.100518</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_SC.TabularMM_SC.defineMaskApply">
+<span class="sig-name descname"><span class="pre">defineMaskApply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_SC.TabularMM_SC.defineMaskApply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the mask applier network.
+All tensors are <cite>(B, D)</cite> and <cite>O’ = O + choice ⊙ mask</cite> (⊙ element-wise product).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_shape</strong> (<em>int</em><em> or </em><em>Tuple</em><em>[</em><em>int</em><em>]</em>) – Input dimensionality <cite>D</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_SC.TabularMM_SC.defineMaskGen">
+<span class="sig-name descname"><span class="pre">defineMaskGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_SC.TabularMM_SC.defineMaskGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the <strong>mask</strong> and <strong>choice</strong> generator sub-networks.
+Sets the <cite>self.MASK</cite> and <cite>self.CHOOSE</cite> neural sub-modules (Keras <cite>Model`s) with signatures roughly:
+- `MASK([O, R]) -&gt; mask</cite> of shape <cite>(B, D)</cite>
+- <cite>CHOOSE([O, R]) -&gt; choice</cite> of shape <cite>(B, D)</cite> with values in <cite>[0, 1]</cite>. An unique choice is produced for all the samples,  which is broadcast to <cite>(B, D)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_shape</strong> (<em>int</em><em> or </em><em>Tuple</em><em>[</em><em>int</em><em>]</em>) – Input feature dimensionality <cite>D</cite> (an integer) or a shape tuple that can be
+resolved to <cite>D</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_SC.TabularMM_SC.loss_fn">
+<span class="sig-name descname"><span class="pre">loss_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_SC.TabularMM_SC.loss_fn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy function that compute the transformation relating to the input data and subsequently compute the loss score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Sequence</em><em>[</em><em>tf.Tensor</em><em>]</em>) – <cite>[O, R]</cite> with shapes <cite>(B, D)</cite> each (outliers, references).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>loss function value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_SC.TabularMM_SC.train_step">
+<span class="sig-name descname"><span class="pre">train_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_SC.TabularMM_SC.train_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-M2OE.models.AETabularMM_Pref"></span><dl class="py class">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_Pref.TabularMM_Pref">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">M2OE.models.AETabularMM_Pref.</span></span><span class="sig-name descname"><span class="pre">TabularMM_Pref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_Pref.TabularMM_Pref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#M2OE.models.AETabularMM_SC.TabularMM_SC" title="M2OE.models.AETabularMM_SC.TabularMM_SC"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularMM_SC</span></code></a></p>
+<p>This module provides an implementation of the neural masking model for a single tabular outlier. It learns feature <em>choice</em> and <em>mask</em> to transform an outlier into a counterfactual close to normals. This variant, tailored to outliers evolving over time, takes into account information from past explanation steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preferences</strong> (<em>np.ndarray</em><em> or </em><em>Sequence</em><em>[</em><em>float</em><em>]</em>) – Per-feature preference weights <cite>(D,)</cite> multiplied with the sparsity term;
+values <cite>&lt; 1</cite> <em>lower</em> the penalty (making features more likely to be re-selected).</p></li>
+<li><p><strong>normal_data</strong> (<em>np.ndarray</em>) – Normal data <cite>(N, D)</cite> to compute <cite>normal_dist</cite> <cite>(D,)</cite>.</p></li>
+<li><p><strong>loss_weights</strong> (<em>Sequence</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><em>1.0</em><em>, </em><em>1.2</em><em>, </em><em>0.3</em><em>]</em>) – Three non-negative weights <cite>[alpha1, alpha2, alpha3]</cite> controlling, respectively,
+(i) subspace contrast, (ii) patch proximity, and (iii) sparsity of the choice.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.001</em>) – Learning rate.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=30</em>) – Training epochs used by explainers.</p></li>
+<li><p><strong>bs</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=16</em>) – Batch size used by explainers.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_Pref.TabularMM_Pref.MASK">
+<span class="sig-name descname"><span class="pre">MASK</span></span><a class="headerlink" href="#M2OE.models.AETabularMM_Pref.TabularMM_Pref.MASK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural module advocated to single out the features to include in the explanation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_Pref.TabularMM_Pref.CHOOSE">
+<span class="sig-name descname"><span class="pre">CHOOSE</span></span><a class="headerlink" href="#M2OE.models.AETabularMM_Pref.TabularMM_Pref.CHOOSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural module advocated to find the modification to apply to sample’s features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_Pref.TabularMM_Pref.MASKAPPLY">
+<span class="sig-name descname"><span class="pre">MASKAPPLY</span></span><a class="headerlink" href="#M2OE.models.AETabularMM_Pref.TabularMM_Pref.MASKAPPLY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-network that composes input, mask and choice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keras.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_Pref.TabularMM_Pref.normal_dist">
+<span class="sig-name descname"><span class="pre">normal_dist</span></span><a class="headerlink" href="#M2OE.models.AETabularMM_Pref.TabularMM_Pref.normal_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Difference statistic vector storing the average feature-wise difference of provided normal samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray of shape (n_features,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="M2OE.models.AETabularMM_Pref.TabularMM_Pref.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choose</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#M2OE.models.AETabularMM_Pref.TabularMM_Pref.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the composite loss for the masking/choice model.</p>
+<p>This loss combines three per-sample terms:
+1) a proximity term that pulls the patched outlier toward its reference in the selected subspace,
+2) a contrastive term that favors subspaces where the outlier deviates from normals (using <cite>self.normal_dist</cite>)
+3) a sparsity term on the choice vector to prefer compact explanations, a preference weight promotes feature re-selection across different snapshots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Sequence</em><em>[</em><em>tf.Tensor</em><em>] or </em><em>Tuple</em><em>[</em><em>tf.Tensor</em><em>, </em><em>tf.Tensor</em><em>]</em>) – <dl>
+<dt>Pair <cite>[data_o, data_i]</cite> where:</dt><dd><ul>
+<li><dl>
+<dt><cite>data_o</cite><span class="classifier">tf.Tensor, shape <cite>(B, D)</cite></span></dt><dd><p>Batch of outlier samples <strong>O</strong>.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><cite>data_i</cite><span class="classifier">tf.Tensor, shape <cite>(B, D)</cite></span></dt><dd><p>Batch of reference/normal samples <strong>R</strong> (e.g., kNN of <strong>O</strong>).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>patches</strong> (<em>tf.Tensor</em>) – Patched/counterfactual samples <strong>O’</strong>, shape <cite>(B, D)</cite>, produced by
+the mask applier.</p></li>
+<li><p><strong>mask</strong> (<em>tf.Tensor</em>) – Real-valued mask magnitudes, shape <cite>(B, D)</cite>.</p></li>
+<li><p><strong>choose</strong> (<em>tf.Tensor</em>) – Real-valued per-feature selectors in <cite>[0, 1]</cite>, shape <cite>(B, D)</cite>. Acts as a
+soft/binary <strong>choice</strong> of dimensions composing the explanation subspace.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scalar loss (0-D tensor): <cite>mean( α1 * margin_n + α2 * sample_distance + α3 * ndim_loss )</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tf.Tensor</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Let <cite>Δ = R − O</cite> (element-wise), <cite>D</cite> the feature count, and <cite>α = self.loss_weights</cite>.</p>
+<p>Per-sample components (all shape <cite>(B,)</cite>):
+- <strong>Sparsity / dimensionality</strong>:</p>
+<blockquote>
+<div><p><cite>ndim_loss = ||choose * w||₂ = sqrt( sum_j choose[:, j]^2*self.preferences[j] )</cite></p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Proximity in the chosen subspace</strong> (weighted L2, normalized by <cite>sqrt(D)</cite>):</dt><dd><p><cite>margin_n = sqrt( sum_j ((O’ − R)[:, j]^2 * choose[:, j]) ) / sqrt(D)</cite></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Contrast vs. normals</strong> (favoring subspaces with larger normal dispersion):</dt><dd><p><cite>differences_red = sum_j (Δ[:, j]^2 * choose[:, j]^2)</cite>
+<cite>normal_dist = sqrt( sum_j (self.normal_dist[j] * choose[:, j]) )</cite>
+<cite>sample_distance = normal_dist / (differences_red + 1e-4)</cite></p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Final scalar loss:
+<cite>loss = mean( α[0] * margin_n + α[1] * sample_distance + α[2] * ndim_loss )</cite></p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Angiulli, F., Fassetti, F., Nisticò, S., &amp; Palopoli, L. (2025). Explaining evolving outliers for uncovering key aspects of the green comparative advantage. Array, 100518.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-M2OE">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-M2OE" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">M2OE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">M2OE package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-M2OE.explainers.Explainer">M2OE.explainers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-M2OE.models.MaskingModel">M2OE.models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-M2OE">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to M2OE’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2025, Fabrizio Angiulli, Fabio Fassetti, Simona Nisticò, Luigi Palopoli.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/M2OE.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

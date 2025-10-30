@@ -11,11 +11,6 @@ import numpy as np
 class MaskingModel(keras.Model):
     """
     This Keras Model subclass provides an abstract implementation of the neural masking model that learn feature *choice* and *mask* to transform an outlier into a counterfactual close to normals.
-
-    References:
-    - Angiulli, F., Fassetti, F., Nisticò, S., & Palopoli, L. (2025). Explaining evolving outliers for uncovering key aspects of the green comparative advantage. Array, 100518.
-    - Angiulli, F., Fassetti, F., Nisticò, S., & Palopoli, L. (2024). Explaining outliers and anomalous groups via subspace density contrastive loss. Machine Learning, 113(10), 7565-7589.
-    - Angiulli, F., Fassetti, F., Nisticó, S., & Palopoli, L. (2023, October). Counterfactuals explanations for outliers via subspaces density contrastive loss. In International Conference on Discovery Science (pp. 159-173). Cham: Springer Nature Switzerland.
     
     Parameters
     ----------
@@ -37,6 +32,12 @@ class MaskingModel(keras.Model):
         Neural module advocated to find the modification to apply to sample's features.
     MASKAPPLY: keras.Module
         Sub-network that composes input, mask and choice.
+        
+    References
+    ----------
+    - Angiulli, F., Fassetti, F., Nisticò, S., & Palopoli, L. (2025). Explaining evolving outliers for uncovering key aspects of the green comparative advantage. Array, 100518.
+    - Angiulli, F., Fassetti, F., Nisticò, S., & Palopoli, L. (2024). Explaining outliers and anomalous groups via subspace density contrastive loss. Machine Learning, 113(10), 7565-7589.
+    - Angiulli, F., Fassetti, F., Nisticó, S., & Palopoli, L. (2023, October). Counterfactuals explanations for outliers via subspaces density contrastive loss. In International Conference on Discovery Science (pp. 159-173). Cham: Springer Nature Switzerland.
     """
 
     def __init__(self, loss_weights, lr, epochs, bs):
@@ -54,16 +55,14 @@ class MaskingModel(keras.Model):
     def defineMaskGen(self, in_shape):
         """
         Build the **mask** and **choice** generator sub-networks.
-        Sets the `self.MASK` and `self.CHOOSE` neural sub-modules (Keras `Model`s)
-            with signatures roughly:
-                - `MASK([O, R]) -> mask` of shape `(B, D)`
-                - `CHOOSE([O, R]) -> choice` of shape `(B, D)` with values in `[0, 1]`.
+        Sets the `self.MASK` and `self.CHOOSE` neural sub-modules (Keras `Model`s) with signatures roughly:
+        - `MASK([O, R]) -> mask` of shape `(B, D)`
+        - `CHOOSE([O, R]) -> choice` of shape `(B, D)` with values in `[0, 1]`.
 
         Parameters
         ----------
         in_shape : int or Tuple[int]
-            Input feature dimensionality `D` (an integer) or a shape tuple that can be
-            resolved to `D`.
+            Input feature dimensionality `D` (an integer) or a shape tuple that can be resolved to `D`.
 
         """
         raise NotImplementedError('subclasses must override defineMaskGen!')
@@ -72,8 +71,7 @@ class MaskingModel(keras.Model):
         """
         Build the **mask applier** sub-network that composes input, mask and choice.
         Sets attribute `self.MASKAPPLY` (Keras `Model`) with signature:
-                - `MASKAPPLY([O, mask, choice]) -> O'` where all tensors are `(B, D)`.
-                  
+        - `MASKAPPLY([O, mask, choice]) -> O'` where all tensors are `(B, D)`.         
 
         Parameters
         ----------

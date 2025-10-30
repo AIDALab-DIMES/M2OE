@@ -100,7 +100,7 @@ import M2OE.explainers.TabularExplainer as TE
 X = np.random.rand(100,20).astype(np.float32)
 # Create a simple outlier
 X[0,[4,5,6]] = 2
-out = X[:1] # Normal samples
+out = X[:1] 
 
 exp = TE.TabularExplainer([1.0, 1.2, 0.3], 0.001, 30, 16)
 res = exp.compute_explanation(out, X[1:], 30)
@@ -124,7 +124,7 @@ X[0,[4,5,6]] = 2
 X[1,[3,4,5]] = 2
 X[2,[5,6,7]] = 2
 
-out = X[:3] # Normal samples
+out = X[:3] 
 exp = TGE.TabularGroupExplainer([1.0, 1.0, 0.5], 0.001, 30, 16)
 res = exp.compute_explanation(out, X[3:], 30)
 
@@ -149,12 +149,12 @@ X = np.random.rand(3, 100, 20).astype(np.float32)
 # Generate a simple outlier
 X[:,0,[4,5,6]] = 2
 
-out = X[:, 0] # Normal samples
+out = X[:, 0]
 exp = TSE.TabularSequentialExplainer([1.0, 1.0, 0.5], 0.001, 30, 16)
 res = exp.compute_explanation(out, X[:, 1:], 30)
 
 # res is a list of length T; each item is a list of (dims_t, patched_t) -- the set of dims is unique for each snapshot
-for t, exps_t in enumerate(seq_exps):
+for t, exps_t in enumerate(res):
     for dims_t, patched_t in exps_t:
         print(f"[t={t}] chosen features:", dims_t, " patched:", patched_t)
 ```
@@ -177,8 +177,11 @@ This module consists of two sub-packages: one (`models/`), which groups all the 
   - `TabularSequentialExplainer` - evolving outlier across time
 
 If you want to extend our module you can either 
+
 > add a new neural architecture by creating a new class in the `models/` folder (must inherit from the MaskingModel abstract class) 
+
 or 
+
 > create a new explanation pipeline by creating a new class in the `explainers/` folder (must inherit from the Explainer abstract class)
 
 

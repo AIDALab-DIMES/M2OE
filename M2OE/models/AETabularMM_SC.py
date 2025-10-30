@@ -28,8 +28,6 @@ class TabularMM_SC(MaskingModel):
         Training epochs used by explainers.
     bs : int, optional
         Batch size used by explainers.
-
-    
     """
 
     def __init__(self, normal_data, loss_weights=[1.0, 1.2, 0.3], lr=0.001, epochs=30, bs=16):
@@ -47,7 +45,7 @@ class TabularMM_SC(MaskingModel):
 
     def call(self, inputs, training=None, mask=None):
         """
-        Forward pass producing counterfactual patches, raw masks, and choices. Overrides the Keras `Model`s `call`function.
+        Forward pass producing counterfactual patches, raw masks, and choices. Overrides the Keras `Model`s `call` function.
 
         Parameters
         ----------
@@ -69,18 +67,15 @@ class TabularMM_SC(MaskingModel):
     def defineMaskGen(self, in_shape):
         """
         Build the **mask** and **choice** generator sub-networks.
-        Sets the `self.MASK` and `self.CHOOSE` neural sub-modules (Keras `Model`s)
-            with signatures roughly:
-                - `MASK([O, R]) -> mask` of shape `(B, D)`
-                - `CHOOSE([O, R]) -> choice` of shape `(B, D)` with values in `[0, 1]`.
-                    An unique choice is produced for all the samples,  which is broadcast to `(B, D)`.
+        Sets the `self.MASK` and `self.CHOOSE` neural sub-modules (Keras `Model`s) with signatures roughly:
+        - `MASK([O, R]) -> mask` of shape `(B, D)`
+        - `CHOOSE([O, R]) -> choice` of shape `(B, D)` with values in `[0, 1]`. An unique choice is produced for all the samples,  which is broadcast to `(B, D)`.
 
         Parameters
         ----------
         in_shape : int or Tuple[int]
             Input feature dimensionality `D` (an integer) or a shape tuple that can be
             resolved to `D`.
-
         """
         num_unit = in_shape * 4
 
@@ -111,8 +106,7 @@ class TabularMM_SC(MaskingModel):
         Parameters
         ----------
         in_shape : int or Tuple[int]
-            Input dimensionality `D`.
-            
+            Input dimensionality `D`.           
         """
         inputs = [Input(in_shape, name='input_img'), Input(in_shape, name='input_mask'),
                   Input(in_shape, name='input_choice')] 
@@ -125,6 +119,19 @@ class TabularMM_SC(MaskingModel):
     
     
     def loss_fn(self, data):
+        """
+        Proxy function that compute the transformation relating to the input data and subsequently compute the loss score.
+        
+        Parameters
+        ----------
+        data: Sequence[tf.Tensor]
+            `[O, R]` with shapes `(B, D)` each (outliers, references).
+        
+        Returns
+        -------
+        int
+            loss function value.
+        """
         patches, mask, choose = self(data)
         return self.compute_loss(data, patches, mask, choose).numpy()
 
@@ -134,10 +141,9 @@ class TabularMM_SC(MaskingModel):
         Compute the composite loss for the masking/choice model.
 
         This loss combines three per-sample terms:
-        (1) a proximity term that pulls the patched outlier toward its reference in the
-            selected subspace, (2) a contrastive term that favors subspaces where the
-            outlier deviates from normals (using `self.normal_dist`), and (3) a sparsity
-            term on the choice vector to prefer compact explanations.
+        1) a proximity term that pulls the patched outlier toward its reference in the selected subspace, 
+        2) a contrastive term that favors subspaces where the outlier deviates from normals (using `self.normal_dist`), 
+        3) a sparsity term on the choice vector to prefer compact explanations.
 
         Parameters
         ----------
@@ -148,13 +154,11 @@ class TabularMM_SC(MaskingModel):
               - `data_i` : tf.Tensor, shape `(B, D)`
                     Batch of reference/normal samples **R** (e.g., kNN of **O**).
         patches : tf.Tensor
-            Patched/counterfactual samples **O'**, shape `(B, D)`, produced by
-            the mask applier.
+            Patched/counterfactual samples **O'**, shape `(B, D)`, produced by the mask applier.
         mask : tf.Tensor
             Real-valued mask magnitudes, shape `(B, D)`.
         choose : tf.Tensor
-            Real-valued per-feature selectors in `[0, 1]`, shape `(B, D)`. Acts as a
-            soft/binary **choice** of dimensions composing the explanation subspace.
+            Real-valued per-feature selectors in `[0, 1]`, shape `(B, D)`. Acts as a soft/binary **choice** of dimensions composing the explanation subspace.
 
         Returns
         -------
@@ -166,14 +170,9 @@ class TabularMM_SC(MaskingModel):
         Let `Δ = R − O` (element-wise), `D` the feature count, and `α = self.loss_weights`.
 
         Per-sample components (all shape `(B,)`):
-        - **Sparsity / dimensionality**:
-            `ndim_loss = ||choose||₂ = sqrt( sum_j choose[:, j]^2 )`
-        - **Proximity in the chosen subspace** (weighted L2, normalized by `sqrt(D)`):
-            `margin_n = sqrt( sum_j ((O' − R)[:, j]^2 * choose[:, j]) ) / sqrt(D)`
-        - **Contrast vs. normals** (favoring subspaces with larger normal dispersion):
-            `differences_red = sum_j (Δ[:, j]^2 * choose[:, j]^2)`
-            `normal_dist = sqrt( sum_j (self.normal_dist[j] * choose[:, j]) )`
-            `sample_distance = normal_dist / (differences_red + 1e-4)`
+        - **Sparsity / dimensionality**
+        - **Proximity in the chosen subspace** (weighted L2, normalized by `sqrt(D)`)
+        - **Contrast vs. normal samples** (favoring subspaces with larger normal dispersion)
 
         Final scalar loss:
         `loss = mean( α[0] * margin_n + α[1] * sample_distance + α[2] * ndim_loss )`
@@ -203,6 +202,8 @@ class TabularMM_SC(MaskingModel):
     
     
     def train_step(self, data):
+        """
+        """
         x, y = data
         
         with tf.GradientTape() as tape:

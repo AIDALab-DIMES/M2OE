@@ -15,10 +15,6 @@ class TabularMM(MaskingModel):
     """
     This module provides an implementation of the neural masking model for a single tabular outlier. It learns feature *choice* and *mask* to transform an outlier into a counterfactual close to normals.
 
-    References:
-    - Angiulli, F., Fassetti, F., Nisticò, S., & Palopoli, L. (2024). Explaining outliers and anomalous groups via subspace density contrastive loss. Machine Learning, 113(10), 7565-7589.
-    - Angiulli, F., Fassetti, F., Nisticó, S., & Palopoli, L. (2023, October). Counterfactuals explanations for outliers via subspaces density contrastive loss. In International Conference on Discovery Science (pp. 159-173). Cham: Springer Nature Switzerland.
-
     Parameters
     ----------
     normal_data : np.ndarray
@@ -44,6 +40,11 @@ class TabularMM(MaskingModel):
         Sub-network that composes input, mask and choice.
     normal_dist: ndarray of shape (n_features,)
         Difference statistic vector storing the average feature-wise difference of provided normal samples.
+        
+    References
+    ----------
+    - Angiulli, F., Fassetti, F., Nisticò, S., & Palopoli, L. (2024). Explaining outliers and anomalous groups via subspace density contrastive loss. Machine Learning, 113(10), 7565-7589.
+    - Angiulli, F., Fassetti, F., Nisticò, S., & Palopoli, L. (2023, October). Counterfactuals explanations for outliers via subspaces density contrastive loss. In International Conference on Discovery Science (pp. 159-173). Cham: Springer Nature Switzerland.
     """
 
     def __init__(self, normal_data, loss_weights=[1.0, 1.2, 0.3], lr=0.001, epochs=30, bs=16):
@@ -61,7 +62,7 @@ class TabularMM(MaskingModel):
 
     def call(self, inputs, training=None, mask=None):
         """
-        Forward pass producing counterfactual patches, raw masks, and choices. Overrides the Keras `Model`s `call`function.
+        Forward pass producing counterfactual patches, raw masks, and choices. Overrides the Keras `Model`s `call` function.
 
         Parameters
         ----------
@@ -82,10 +83,9 @@ class TabularMM(MaskingModel):
     def defineMaskGen(self, in_shape):
         """
         Build the **mask** and **choice** generator sub-networks.
-        Sets the `self.MASK` and `self.CHOOSE` neural sub-modules (Keras `Model`s)
-            with signatures roughly:
-                - `MASK([O, R]) -> mask` of shape `(B, D)`
-                - `CHOOSE([O, R]) -> choice` of shape `(B, D)` with values in `[0, 1]`.
+        Sets the `self.MASK` and `self.CHOOSE` neural sub-modules (Keras `Model`s) with signatures roughly:
+        - `MASK([O, R]) -> mask` of shape `(B, D)`
+        - `CHOOSE([O, R]) -> choice` of shape `(B, D)` with values in `[0, 1]`.
 
         Parameters
         ----------
@@ -138,10 +138,9 @@ class TabularMM(MaskingModel):
         Compute the composite loss for the masking/choice model.
 
         This loss combines three per-sample terms:
-        (1) a proximity term that pulls the patched outlier toward its reference in the
-            selected subspace, (2) a contrastive term that favors subspaces where the
-            outlier deviates from normals (using `self.normal_dist`), and (3) a sparsity
-            term on the choice vector to prefer compact explanations.
+        1) a proximity term that pulls the patched outlier toward its reference in the selected subspace, 
+        2) a contrastive term that favors subspaces where the outlier deviates from normals (using `self.normal_dist`), 
+        3) a sparsity term on the choice vector to prefer compact explanations.
 
         Parameters
         ----------
@@ -171,13 +170,8 @@ class TabularMM(MaskingModel):
 
         Per-sample components (all shape `(B,)`):
         - **Sparsity / dimensionality**:
-            `ndim_loss = ||choose||₂ = sqrt( sum_j choose[:, j]^2 )`
         - **Proximity in the chosen subspace** (weighted L2, normalized by `sqrt(D)`):
-            `margin_n = sqrt( sum_j ((O' − R)[:, j]^2 * choose[:, j]) ) / sqrt(D)`
-        - **Contrast vs. normals** (favoring subspaces with larger normal dispersion):
-            `differences_red = sum_j (Δ[:, j]^2 * choose[:, j]^2)`
-            `normal_dist = sqrt( sum_j (self.normal_dist[j] * choose[:, j]) )`
-            `sample_distance = normal_dist / (differences_red + 1e-4)`
+        - **Contrast vs. normal samples** (favoring subspaces with larger normal dispersion):
 
         Final scalar loss:
         `loss = mean( α[0] * margin_n + α[1] * sample_distance + α[2] * ndim_loss )`
@@ -207,7 +201,8 @@ class TabularMM(MaskingModel):
     
     
     def train_step(self, data):
-        
+        """
+        """
         x, y = data
 
         with tf.GradientTape() as tape:
